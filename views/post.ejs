@@ -89,8 +89,9 @@
                 function recurse(post) {
                     
                     const makeForm = id == comment || postid == -1
+                    const date = post.timestamp ? new Date(post.timestamp) : null
                     ret += 
-                        `<post><div class="content"><h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
+                        `<post><div class="content">${date ? (`<h6>${date.toUTCString()}</h6>`) : ''}<h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll('[* ', '<i>').replaceAll(' *]', '</i>')
                             .replaceAll('[** ', '<b>').replaceAll(' **]', '</b>')
