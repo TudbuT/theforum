@@ -64,7 +64,7 @@ server.get('/comment', function get(req, res) {
                     if(req.query.name && req.query.title && req.query.content) { 
                         post.comments.unshift({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
                         res.redirect(`/post/${id}`)
-                        return
+                        cid = -1
                     }
                     return true
                 }
@@ -74,7 +74,10 @@ server.get('/comment', function get(req, res) {
                 }
                 return false
             }
-            if(recurse(posts[id])) {
+            const f = recurse(posts[id]);
+            if(f && cid == -1)
+                return
+            if(f) {
                 res.render('post.ejs', {post: posts[id], postid: id, webname: webname, comment: cid})
             }
             else
