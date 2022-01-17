@@ -38,7 +38,7 @@ server.get('/', function get(req, res) {
         return
     }
     let mainPage = {author: webname, title: 'All posts', content: 'These are all the posts on the board:', comments: []}
-    for (let i = 0; i < posts.length; i++) {
+    for (let i = 0; i < posts.length && i < 2000; i++) {
         mainPage.comments.push({author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
     res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, comment: 1})
