@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width height=device-height">
+        <title><%=post.title%> - <%=webname%></title>
+        <style>
+            html {
+                background-color: #202020;
+                color: #a0a0a0;
+                font-family: sans-serif;
+            }
+
+            a {
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+            div.posts {
+                margin: auto;
+                display: block;
+                width: fit-content;
+            }
+
+            post .content {
+                max-width: min(70vw, max(50vw, 100em));
+                background-color: #202030;
+                display: block;
+                padding: 0 5px 5px 5px;
+                border: 1px solid #808080;
+            }
+
+            post .content a {
+                display: block;
+                text-align: right;
+            }
+
+            post {
+                display: block;
+                margin-left: 5px;
+                padding-left: 5px;
+                border-left: 2px solid #808080;
+                padding-bottom: 5px;
+                padding-top: 5px;
+            }
+
+            h3 {
+                display: block;
+                margin-top: 5px;
+            }
+            
+            pre {
+                overflow-x: scroll;
+            }
+
+            pre.inline {
+                display: inline;
+            }
+
+            button {
+                padding: 10px;
+                border-radius: 3px;
+                border: 1px solid #000000;
+                background-color: #000000;
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <a style="position: absolute; bottom: 10px; right: 10px;" href="/"><button type="button">Home</button></a>
+        <div class="posts">
+            <%- (function(){
+                let ret = ''
+                let mainPost = post
+                let id = postid == -1 ? -2 : 0
+                function recurse(post) {
+                    id++
+                    
+                    const makeForm = id == comment || postid == -1
+                    ret += 
+                        `<post><div class="content"><h3>${post.author}: ${post.title}</h3>` + 
+                        post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
+                            .replaceAll('[* ', '<i>').replaceAll(' *]', '</i>')
+                            .replaceAll('[** ', '<b>').replaceAll(' **]', '</b>')
+                            .replaceAll('[*** ', '<b><i>').replaceAll(' ***]', '</i></b>')
+                            .replaceAll('[_ ', '<u>').replaceAll(' _]', '</u>')
+                            .replaceAll('[*_ ', '<i><u>').replaceAll(' _*]', '</u></i>')
+                            .replaceAll('[**_ ', '<b><u>').replaceAll(' _**]', '</u></b>')
+                            .replaceAll('[***_ ', '<b><i><u>').replaceAll(' _***]', '</u></i></b>')
+                            .replaceAll('[" ', '<pre class="inline">').replaceAll(' "]', '</pre>')
+                            .replaceAll('["" ', '<pre>').replaceAll(' ""]', '</pre>')
+                            .replaceAll('\n\n', '<br/>')
+                    if (postid != -1 || id == -1) {
+                        if(makeForm) {
+                            if(postid != -1)
+                                ret += `<a href="/post/${postid}">[Nevermind]</a>`
+                            ret += 
+                                `</div><post><div class="content"><form><label>` +
+                                `<h3><input type="username" name="name" value="Anonymous">: <input type="text" name="title" placeholder="Title"></h3>` + 
+                                `<textarea name="content" placeholder="Oh, nice!"></textarea><br/><br/><button type="submit">Submit</button>` + 
+                                `</label></form></div></post>`
+                        }
+                        else  
+                            ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
+                    }
+                    else
+                        ret += `<a href="/post/${id}">[Open]</a></div>`
+                    for(const comment of post.comments) {
+                        recurse(comment)
+                    }
+                    ret += '</post>'
+                }
+                recurse(post)
+                return ret
+            })() %>
+        </div>
+    <body>
+<html>
