@@ -85,4 +85,4 @@ server.get('/comment', function get(req, res) {
         res.send("err1")
 })
 
-server.listen(process.env.port | process.env.PORT | 8080)
+server.listen(process.argv[2] | process.env.PORT | 8080)
