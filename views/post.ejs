@@ -76,7 +76,7 @@
                     id++
                     
                     const makeForm = id == comment || postid == -1
-                    ret += 
+                    let r = 
                         `<post><div class="content"><h3>${post.author}: ${post.title}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll('[* ', '<i>').replaceAll(' *]', '</i>')
@@ -92,22 +92,23 @@
                     if (postid != -1 || id == -1) {
                         if(makeForm) {
                             if(postid != -1)
-                                ret += `<a href="/post/${postid}">[Nevermind]</a>`
-                            ret += 
+                                r += `<a href="/post/${postid}">[Nevermind]</a>`
+                            r += 
                                 `</div><post><div class="content"><form><label>` +
                                 `<h3><input type="username" name="name" value="Anonymous">: <input type="text" name="title" placeholder="Title"></h3>` + 
                                 `<textarea name="content" placeholder="So basically, ..."></textarea><br/><br/><button type="submit">Submit</button>` + 
                                 `</label></form></div></post>`
                         }
                         else  
-                            ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
+                            r += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
                     }
                     else
-                        ret += `<a href="/post/${id}">[Open]</a></div>`
+                        r += `<a href="/post/${id}">[Open]</a></div>`
                     for(const comment of post.comments) {
                         recurse(comment)
                     }
-                    ret += '</post>'
+                    r += '</post>'
+                    ret = r + ret
                 }
                 recurse(post)
                 return ret
