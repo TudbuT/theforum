@@ -1,9 +1,9 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width height=device-height initial-scale=1">
-        <meta property="og:site_name" content=<%=`"${webname}"`%> />
-        <meta property="og:title" content=<%=`"${post.title}"`%> />
-        <meta property="og:description" content=<%=`"A post by ${post.author} with ${post.comments.length} comments."`%> />
+        <meta property="og:site_name" content="<%=webname%>" />
+        <meta property="og:title" content="<%=post.title.replaceAll('"','')%>" />
+        <meta property="og:description" content="<%=`A post by ${post.author.replaceAll('"','')} with ${post.comments.length} comments.`%>" />
         <title><%=post.title%> - <%=webname%></title>
         <style>
             html {
