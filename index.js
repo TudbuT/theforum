@@ -33,13 +33,13 @@ server.use(function replacer(req, res, next) {
 
 server.get('/', function get(req, res) {
     if(req.query.name && req.query.title && req.query.content) {
-        posts.push({author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
+        posts.push({timestamp: new Date().getTime(), author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
         res.redirect('/')
         return
     }
     let mainPage = {author: webname, title: 'All posts', content: 'These are all the posts on the board:', comments: []}
     for (let i = 0; i < posts.length && i < 2000; i++) {
-        mainPage.comments.push({author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
+        mainPage.comments.push({timestamp: posts[i].timestamp, author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
     res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, comment: ''})
 })
@@ -61,7 +61,7 @@ server.get('/comment', function get(req, res) {
                 console.log(String(cid) + ' ' + comment)
                 if(String(cid) === comment) {
                     if(req.query.name && req.query.title && req.query.content) { 
-                        post.comments.push({author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
+                        post.comments.push({timestamp: new Date().getTime(), author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
                         res.redirect(`/post/${id}`)
                         cid = -1
                     }
@@ -84,7 +84,7 @@ server.get('/comment', function get(req, res) {
             }
             else {
                 if(req.query.name && req.query.title && req.query.content) { 
-                    posts[id].comments.push({author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
+                    posts[id].comments.push({timestamp: new Date().getTime(), author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
                     res.redirect(`/post/${id}`)
                 }
                 else
