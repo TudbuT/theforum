@@ -76,7 +76,7 @@
                     
                     const makeForm = id == comment || postid == -1
                     ret += 
-                        `<post><div class="content"><h3>${post.author}: ${post.title}</h3>` + 
+                        `<post><div class="content"><h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll('[* ', '<i>').replaceAll(' *]', '</i>')
                             .replaceAll('[** ', '<b>').replaceAll(' **]', '</b>')
