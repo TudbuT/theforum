@@ -1,15 +1,1 @@
-[
-  {
-    "title": "Default post",
-    "content": "This is the first post, it was here since the beginning.\n(Remove the space after the '[' and before the ']')\n  [ * [* text *] * ] [ ** [** text **] ** ] [ *** [*** text ***] *** ] [ _ [_ text _] _ ] [ *_ [*_ text _*] _* ] [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _***  [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _*** ] [ \" [\" text \"] \" ]",
-    "author": "root",
-    "comments": [
-      {
-        "title": "The first comment",
-        "content": "This is the first comment, it was here since the beginning.",
-        "author": "Anonymous",
-        "comments": []
-      }
-    ]
-  }
-]
+[{"title":"Default post","content":"This is the first post, it was here since the beginning.\n(Remove the space after the '[' and before the ']')\n  [ * [* text *] * ] [ ** [** text **] ** ] [ *** [*** text ***] *** ] [ _ [_ text _] _ ] [ *_ [*_ text _*] _* ] [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _***  [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _*** ] [ \" [\" text \"] \" ]","author":"root","comments":[{"title":"The first comment","content":"This is the first comment, it was here since the beginning.","author":"Anonymous","comments":[]}]}]
