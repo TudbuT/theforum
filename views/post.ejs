@@ -107,8 +107,9 @@
                             .replaceAll('[**_ ', '<b><u>').replaceAll(' _**]', '</u></b>')
                             .replaceAll('[***_ ', '<b><i><u>').replaceAll(' _***]', '</u></i></b>')
                             .replaceAll('[" ', '<pre class="inline">').replaceAll(' "]', '</pre>')
-                            .replaceAll('["" ', '<pre>').replaceAll(' ""]', '</pre>')
-                            .replaceAll('\n\n', '<br/>')
+                            .replaceAll('["\n', '<pre>').replaceAll('\n"]', '</pre>')
+                            .replaceAll('["" \n', '<pre>').replaceAll('\n ""]', '</pre>')
+                            .replaceAll('\n', '<br/>')
                     if (postid != -1 || id == '') {
                         if(makeForm) {
                             if(postid != -1)
