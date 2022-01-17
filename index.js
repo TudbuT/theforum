@@ -33,13 +33,13 @@ server.use(function replacer(req, res, next) {
 
 server.get('/', function get(req, res) {
     if(req.query.name && req.query.title && req.query.content) {
-        posts.push({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
+        posts.unshift({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
         res.redirect('/')
         return
     }
     let mainPage = {author: webname, title: 'All posts', content: 'These are all the posts on the board:', comments: []}
-    for (let i = posts.length - 1; i >= 0 && posts.length - i < 2000; i--) {
-        mainPage.comments.unshift({author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
+    for (let i = 0; i < posts.length && i < 2000; i++) {
+        mainPage.comments.push({author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
     res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, comment: 1})
 })
