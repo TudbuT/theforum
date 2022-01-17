@@ -104,11 +104,12 @@
                     }
                     else
                         r += `<a href="/post/${id}">[Open]</a></div>`
+                    ret = r + ret
                     for(const comment of post.comments) {
                         recurse(comment)
                     }
-                    r += '</post>'
-                    ret = r + ret
+                    ret = '</post>' + ret
+                    
                 }
                 recurse(post)
                 return ret
