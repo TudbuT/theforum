@@ -71,9 +71,8 @@
             <%- (function(){
                 let ret = ''
                 let mainPost = post
-                let id = postid == -1 ? -2 : 0
+                let id = ''
                 function recurse(post) {
-                    id++
                     
                     const makeForm = id == comment || postid == -1
                     ret += 
@@ -89,7 +88,7 @@
                             .replaceAll('[" ', '<pre class="inline">').replaceAll(' "]', '</pre>')
                             .replaceAll('["" ', '<pre>').replaceAll(' ""]', '</pre>')
                             .replaceAll('\n\n', '<br/>')
-                    if (postid != -1 || id == -1) {
+                    if (postid != -1 || id == '') {
                         if(makeForm) {
                             if(postid != -1)
                                 ret += `<a href="/post/${postid}">[Nevermind]</a>`
@@ -104,8 +103,11 @@
                     }
                     else
                         ret += `<a href="/post/${id}">[Open]</a></div>`
-                    for(let i = 0; i < post.comments.length; i++) {
+                    for(let i = post.comments.length - 1; i >= 0; i--) {
+                        const pid = id
+                        id += i + '_'
                         recurse(post.comments[i])
+                        id = pid
                     }
                     ret += '</post>'
                 }

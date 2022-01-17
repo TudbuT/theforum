@@ -25,15 +25,15 @@ function replace(req, regex, repl) {
 }
 
 server.use(function replacer(req, res, next) {
-    replace(req, /^\/post\/([0-9]+)/g, '/post?id=$1')
-    replace(req, /^\/comment\/([0-9]+)\/([0-9]+)(\?(.*))?/g, '/comment?id=$1&comment=$2&$4')
+    replace(req, /^\/post\/([0-9]+)_?/g, '/post?id=$1')
+    replace(req, /^\/comment\/([0-9_]+)\/([0-9_]*)(\?(.*))?/g, '/comment?id=$1&comment=$2&$4')
     next()
 })
 
 
 server.get('/', function get(req, res) {
     if(req.query.name && req.query.title && req.query.content) {
-        posts.unshift({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
+        posts.push({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
         res.redirect('/')
         return
     }
@@ -41,7 +41,7 @@ server.get('/', function get(req, res) {
     for (let i = 0; i < posts.length && i < 2000; i++) {
         mainPage.comments.push({author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
-    res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, comment: 1})
+    res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, comment: ''})
 })
 server.get('/post', function get(req, res) {
     if(req.query.id) {
@@ -52,25 +52,27 @@ server.get('/post', function get(req, res) {
     }
 })
 server.get('/comment', function get(req, res) {
-    if(req.query.id && req.query.comment) {
+    if(req.query.id) {
         let id = req.query.id
-        let comment = req.query.comment
+        let comment = req.query.comment 
         if(posts[id]) {
-            let cid = 0
+            let cid = ''
             function recurse(post) {
-                cid++
-                console.log(String(cid) + comment)
+                console.log(String(cid) + ' ' + comment)
                 if(String(cid) === comment) {
                     if(req.query.name && req.query.title && req.query.content) { 
-                        post.comments.unshift({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
+                        post.comments.push({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
                         res.redirect(`/post/${id}`)
                         cid = -1
                     }
                     return true
                 }
-                for(const comment of post.comments) {
-                    if(recurse(comment))
+                for(let i = 0; i < post.comments.length; i++) {
+                    const pid = cid
+                    cid += i + '_'
+                    if(recurse(post.comments[i]))
                         return true
+                    cid = pid
                 }
                 return false
             }
@@ -80,8 +82,14 @@ server.get('/comment', function get(req, res) {
             if(f) {
                 res.render('post.ejs', {post: posts[id], postid: id, webname: webname, comment: cid})
             }
-            else
-                res.send(`err2 ${req.search} ${cid}`)
+            else {
+                if(req.query.name && req.query.title && req.query.content) { 
+                    posts[id].comments.push({author: req.query.name, title: req.query.title, content: req.query.content, comments: []})
+                    res.redirect(`/post/${id}`)
+                }
+                else
+                    res.render('post.ejs', {post: posts[id], postid: id, webname: webname, comment: ''})
+            }
         }
     }
     else
