@@ -75,7 +75,7 @@
                     id++
                     
                     const makeForm = id == comment || postid == -1
-                    let r = 
+                    ret += 
                         `<post><div class="content"><h3>${post.author}: ${post.title}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll('[* ', '<i>').replaceAll(' *]', '</i>')
@@ -91,23 +91,22 @@
                     if (postid != -1 || id == -1) {
                         if(makeForm) {
                             if(postid != -1)
-                                r += `<a href="/post/${postid}">[Nevermind]</a>`
-                            r += 
+                                ret += `<a href="/post/${postid}">[Nevermind]</a>`
+                            ret += 
                                 `</div><post><div class="content"><form><label>` +
                                 `<h3><input type="username" name="name" value="Anonymous">: <input type="text" name="title" placeholder="Title"></h3>` + 
                                 `<textarea name="content" placeholder="So basically, ..."></textarea><br/><br/><button type="submit">Submit</button>` + 
                                 `</label></form></div></post>`
                         }
                         else  
-                            r += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
+                            ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
                     }
                     else
-                        r += `<a href="/post/${id}">[Open]</a></div>`
+                        ret += `<a href="/post/${id}">[Open]</a></div>`
                     for(const comment of post.comments) {
                         r = recurse(comment) + r
                     }
-                    r += '</post>'
-                    return r
+                    ret += '</post>'
                 }
                 return recurse(post)
             })() %>
