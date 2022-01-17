@@ -1,1 +1,15 @@
-[{"author":"Anonymous","title":"asd","content":"asd","comments":[{"author":"Anonymous","title":"sd","content":"asd","comments":[{"author":"Anonymous","title":"asdasd","content":"asdasd","comments":[]},{"author":"Anonymous","title":"sdsd","content":"sdsd","comments":[]}]}]},{"title":"Default post","content":"This is the first post, it was here since the beginning.\n(Remove the space after the '[' and before the ']')\n  [ * [* text *] * ] [ ** [** text **] ** ] [ *** [*** text ***] *** ] [ _ [_ text _] _ ] [ *_ [*_ text _*] _* ] [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _***  [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _*** ] [ \" [\" text \"] \" ]","author":"root","comments":[{"author":"Anonymous","title":"wef","content":"tegw","comments":[{"author":"Anonymous","title":"asd","content":"asd","comments":[]},{"author":"Anonymous","title":"wef","content":"wef","comments":[]}]},{"title":"The first comment","content":"This is the first comment, it was here since the beginning.","author":"Anonymous","comments":[]}]},{"author":"Anonymous","title":"asd","content":"asd\r\n","comments":[]},{"author":"Anonymous","title":"test","content":"test","comments":[]},{"author":"Anonymous","title":"asdf","content":"asf","comments":[{"author":"Anonymous","title":"ok seehr nice","content":"test","comments":[{"author":"Anonymous","title":"YES","content":"YES","comments":[{"author":"Anonymous","title":"Yes","content":"[**_ YES _**]","comments":[]}]},{"author":"Anonymous","title":"retf","content":"rigu","comments":[{"author":"Anonymous","title":"qw","content":"qw","comments":[]}]},{"author":"Anonymous","title":"ereufe","content":"a","comments":[]}]},{"author":"Anonymous","title":"A","content":"a","comments":[]}]},{"author":"Anonymous","title":"rw","content":"asd","comments":[{"author":"Anonymous","title":"asd","content":"sasd\r\n","comments":[]},{"author":"Anonymous","title":"testos","content":"testus","comments":[]},{"author":"Anonymous","title":"morhgor","content":"lif","comments":[{"author":"Anonymous","title":"asd","content":"asd","comments":[]}]},{"author":"Anonymous","title":"asd","content":"asd","comments":[{"author":"Anonymous","title":"asd","content":"asd","comments":[]}]},{"author":"Anonymous","title":"moin","content":"uhgr\r\n","comments":[]}]}]
+[
+  {
+    "title": "Default post",
+    "content": "This is the first post, it was here since the beginning.\n(Remove the space after the '[' and before the ']')\n  [ * [* text *] * ] [ ** [** text **] ** ] [ *** [*** text ***] *** ] [ _ [_ text _] _ ] [ *_ [*_ text _*] _* ] [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _***  [ **_ [**_ text _**] _** ] [ ***_ [***_ text _***] _*** ] [ \" [\" text \"] \" ]",
+    "author": "root",
+    "comments": [
+      {
+        "title": "The first comment",
+        "content": "This is the first comment, it was here since the beginning.",
+        "author": "Anonymous",
+        "comments": []
+      }
+    ]
+  }
+]
