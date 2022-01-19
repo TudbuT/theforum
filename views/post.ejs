@@ -103,6 +103,7 @@
                         `<post><div class="content">${date ? (`<h6>${date.toUTCString()}</h6>`) : ''}<h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll('[* ', '<i>').replaceAll(' *]', '</i>')
+                            .replaceAll(/(https?:\/\/[^ \n]+)/g, '<a href="$1" target="blank">$1</a>')
                             .replaceAll('[** ', '<b>').replaceAll(' **]', '</b>')
                             .replaceAll('[*** ', '<b><i>').replaceAll(' ***]', '</i></b>')
                             .replaceAll('[_ ', '<u>').replaceAll(' _]', '</u>')
@@ -113,7 +114,6 @@
                             .replaceAll('["\n', '<pre>').replaceAll('\n"]', '</pre>')
                             .replaceAll('["" \n', '<pre>').replaceAll('\n ""]', '</pre>')
                             .replaceAll('\n', '<br/>')
-                            .replaceAll(/(https?:\/\/[^ \n]+)/g, '<a href="$1" target="blank">$1</a>')
                     if (postid != -1 || id == '') {
                         if(makeForm) {
                             if(postid != -1)
