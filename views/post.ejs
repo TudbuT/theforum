@@ -120,10 +120,10 @@
                             if(postid != -1)
                                 ret += `<a href="/post/${postid}">[Nevermind]</a>`
                             ret += 
-                                `</div><post><div class="content"><form><label>` +
+                                `</div></div><post><div class="content"><form><label>` +
                                 `<h3><input type="username" name="name" value="Anonymous" required>: <input type="text" name="title" placeholder="Title" required></h3>` + 
                                 `<textarea name="content" placeholder="So basically, ..." required></textarea><br/><br/><button type="submit">Submit</button>` + 
-                                `</label></form></div></post>`
+                                `</label></form></div></post><div>`
                         }
                         else  
                             ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
