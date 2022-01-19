@@ -3,6 +3,7 @@ const bdb = require('bdb.js')
 const posts = bdb.load('posts.json', 1)
 
 const webname = 'TheForum'
+const email = null
 
 const server = new Express()
 
@@ -41,13 +42,13 @@ server.get('/', function get(req, res) {
     for (let i = 0; i < posts.length && i < 2000; i++) {
         mainPage.comments.push({timestamp: posts[i].timestamp, author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
-    res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, comment: ''})
+    res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, email: email, comment: ''})
 })
 server.get('/post', function get(req, res) {
     if(req.query.id) {
         let id = req.query.id
         if(posts[id]) {
-            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, comment: null})
+            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: null})
         }
     }
 })
@@ -80,7 +81,7 @@ server.get('/comment', function get(req, res) {
             if(f && cid == -1)
                 return
             if(f) {
-                res.render('post.ejs', {post: posts[id], postid: id, webname: webname, comment: cid})
+                res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid})
             }
             else {
                 if(req.query.name && req.query.title && req.query.content) { 
@@ -88,7 +89,7 @@ server.get('/comment', function get(req, res) {
                     res.redirect(`/post/${id}`)
                 }
                 else
-                    res.render('post.ejs', {post: posts[id], postid: id, webname: webname, comment: ''})
+                    res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: ''})
             }
         }
     }
