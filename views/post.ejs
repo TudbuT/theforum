@@ -128,7 +128,7 @@
                             ret += `<a class="controls" href="/comment/${postid}/${id}">[Reply]</a> </div>`
                     }
                     else
-                        ret += `<a href="/post/${id}">[Open]</a></div>`
+                        ret += `<a class="controls" href="/post/${id}">[Open]</a></div>`
                     for(let i = post.comments.length - 1; i >= 0; i--) {
                         const pid = id
                         id += i + '_'
