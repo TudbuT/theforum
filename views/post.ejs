@@ -32,7 +32,7 @@
                 border: 1px solid #808080;
             }
 
-            post .content a {
+            post .content a.controls {
                 display: block;
                 text-align: right;
             }
@@ -117,7 +117,7 @@
                     if (postid != -1 || id == '') {
                         if(makeForm) {
                             if(postid != -1)
-                                ret += `<a href="/post/${postid}">[Nevermind]</a>`
+                                ret += `<a class="controls" href="/post/${postid}">[Nevermind]</a>`
                             ret += 
                                 `</div><post><div class="content"><form><label>` +
                                 `<h3><input type="username" name="name" value="Anonymous" required>: <input type="text" name="title" placeholder="Title" required></h3>` + 
@@ -125,7 +125,7 @@
                                 `</label></form></div></post>`
                         }
                         else  
-                            ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
+                            ret += `<a class="controls" href="/comment/${postid}/${id}">[Reply]</a> </div>`
                     }
                     else
                         ret += `<a href="/post/${id}">[Open]</a></div>`
