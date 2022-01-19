@@ -88,7 +88,7 @@
         </style>
     </head>
     <body>
-        <%-email ? `<block style="text-align: center;">Please send any inquiries to ${email}.</block><br/>` : ''%>
+        <%-email ? `<block style="text-align: center; width: 100%;">Please send any inquiries to ${email}.</block><br/>` : ''%>
         <a style="position: fixed; bottom: 10px; right: 10px;" href="/"><button type="button">Home</button></a>
         <div class="posts">
             <%- (function(){
