@@ -113,6 +113,7 @@
                             .replaceAll('["\n', '<pre>').replaceAll('\n"]', '</pre>')
                             .replaceAll('["" \n', '<pre>').replaceAll('\n ""]', '</pre>')
                             .replaceAll('\n', '<br/>')
+                            .replaceAll(/(https?:\/\/[^ \n]+)/g, '<a href="$1" target="blank">$1</a>')
                     if (postid != -1 || id == '') {
                         if(makeForm) {
                             if(postid != -1)
