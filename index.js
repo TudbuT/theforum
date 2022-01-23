@@ -29,12 +29,16 @@ server.use(function replacer(req, res, next) {
     replace(req, /^\/post\/([0-9]+)_?/g, '/post?id=$1')
     replace(req, /^\/comment\/([0-9_]+)\/([0-9_]*)(\?(.*))?/g, '/comment?id=$1&comment=$2&$4')
     next()
+    console.log(JSON.stringify(req.query))
+    console.log(JSON.stringify(req.body))
 })
 
+server.use(require('body-parser').urlencoded({extended: false}))
 
-server.get('/', function get(req, res) {
-    if(req.query.name && req.query.title && req.query.content) {
-        posts.push({timestamp: new Date().getTime(), author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
+
+server.all('/', function get(req, res) {
+    if(req.body.name && req.body.title && req.body.content) {
+        posts.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
         res.redirect('/')
         return
     }
@@ -52,7 +56,7 @@ server.get('/post', function get(req, res) {
         }
     }
 })
-server.get('/comment', function get(req, res) {
+server.all('/comment', function get(req, res) {
     if(req.query.id) {
         let id = req.query.id
         let comment = req.query.comment 
@@ -61,8 +65,8 @@ server.get('/comment', function get(req, res) {
             function recurse(post) {
                 console.log(String(cid) + ' ' + comment)
                 if(String(cid) === comment) {
-                    if(req.query.name && req.query.title && req.query.content) { 
-                        post.comments.push({timestamp: new Date().getTime(), author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
+                    if(req.body.name && req.body.title && req.body.content) { 
+                        post.comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
                         res.redirect(`/post/${id}`)
                         cid = -1
                     }
@@ -84,8 +88,8 @@ server.get('/comment', function get(req, res) {
                 res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid})
             }
             else {
-                if(req.query.name && req.query.title && req.query.content) { 
-                    posts[id].comments.push({timestamp: new Date().getTime(), author: req.query.name, title: req.query.title, content: req.query.content.replaceAll('\r\n', '\n'), comments: []})
+                if(req.body.name && req.body.title && req.body.content) { 
+                    posts[id].comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
                     res.redirect(`/post/${id}`)
                 }
                 else

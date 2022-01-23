@@ -108,15 +108,15 @@
                         `<post><div class="content">${date ? (`<h6>${date.toUTCString()}</h6>`) : ''}<h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll(/(https?:\/\/[^ \n]+)/g, '<a href="$1" target="_blank">$1</a>')
-                            .replaceAll(/\[[*] ([\w\W]*) [*]\]/g, '<i>$1</i>')
-                            .replaceAll(/\[[*][*] ([\w\W]*) [*][*]\]/g, '<b>$1</b>')
-                            .replaceAll(/\[[*][*][*] ([\w\W]*) [*][*][*]\]/g, '<b><i>$1</i></b>')
-                            .replaceAll(/\[[_] ([\w\W]*) [_]\]/g, '<u>$1</u>')
-                            .replaceAll(/\[[*][_] ([\w\W]*) [_][*]\]/g, '<i><u>$1</u></i>')
-                            .replaceAll(/\[[*][*][_] ([\w\W]*) [_][*][*]\]/g, '<b><u>$1</u></b>')
-                            .replaceAll(/\[[*][*][*][_] ([\w\W]*) [_][*][*][*]\]/g, '<b><i><u>$1</u></i></b>')
-                            .replaceAll(/\[["] ([\w\W]*) ["]\]/g, '<pre class="inline">$1</pre>')
-                            .replaceAll(/\[["]["]* \n([\w\W]*)\n ["]["]*\]/g, '<pre>$1</pre>')
+                            .replaceAll(/\[[*] ([\w\W]*?) [*]\]/g, '<i>$1</i>')
+                            .replaceAll(/\[[*][*] ([\w\W]*?) [*][*]\]/g, '<b>$1</b>')
+                            .replaceAll(/\[[*][*][*] ([\w\W]*?) [*][*][*]\]/g, '<b><i>$1</i></b>')
+                            .replaceAll(/\[[_] ([\w\W]*?) [_]\]/g, '<u>$1</u>')
+                            .replaceAll(/\[[*][_] ([\w\W]*?) [_][*]\]/g, '<i><u>$1</u></i>')
+                            .replaceAll(/\[[*][*][_] ([\w\W]*?) [_][*][*]\]/g, '<b><u>$1</u></b>')
+                            .replaceAll(/\[[*][*][*][_] ([\w\W]*?) [_][*][*][*]\]/g, '<b><i><u>$1</u></i></b>')
+                            .replaceAll(/\[["] ([\w\W]*?) ["]\]/g, '<pre class="inline">$1</pre>')
+                            .replaceAll(/\[["]["]* \n([\w\W]*?)\n ["]["]*\]/g, '<pre>$1</pre>')
                             .replaceAll('\n', '<br/>')
                     ret += '<div class="controls">'
                     if (postid != -1 || id == '') {
@@ -124,7 +124,7 @@
                             if(postid != -1)
                                 ret += `<a href="/post/${postid}">[Nevermind]</a>`
                             ret += 
-                                `</div></div><post><div class="content"><form><label>` +
+                                `</div></div><post><div class="content"><form method="post"><label>` +
                                 `<h3><input type="username" name="name" value="Anonymous" required>: <input type="text" name="title" placeholder="Title" required></h3>` + 
                                 `<textarea name="content" placeholder="So basically, ..." required></textarea><br/><br/><button type="submit">Submit</button>` + 
                                 `</label></form></div></post><div>`
