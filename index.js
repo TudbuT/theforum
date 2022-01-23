@@ -57,7 +57,7 @@ server.get('/post', function get(req, res) {
     if(req.query.id) {
         let id = req.query.id
         if(posts[id]) {
-            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: null})
+            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: null, fake: false})
         }
     }
 })
