@@ -126,15 +126,26 @@
                                 ret += `<a href="/post/${postid}">[Nevermind]</a>`
                             ret += 
                                 `</div></div><post><div class="content"><form method="post"><label>` +
-                                `<h3><input type="username" name="name" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("\"", "&quot;")}"` : 'value="Anonymous"'} required>: <input type="text" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("\"", "&quot;")}"` : ''} required></h3>` + 
-                                `<textarea name="content" placeholder="So basically, ..."  required>${fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : ''}</textarea><br/><br/><button type="submit" name="fake" value="no">Submit</button> <button type="submit" name="fake" value="yes">Preview</button>` + 
+                                `<h3>` +
+                                `<input type="username" name="name" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : 'value="Anonymous"'} required>: ` + 
+                                `<input type="text" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : ''} required>` + 
+                                `</h3>` + 
+                                `<textarea name="content" placeholder="So basically, ..." required>` +
+                                (fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : '') +
+                                `</textarea><br/><br/>` + 
+                                `<button type="submit" name="fake" value="no">Submit</button> ` +
+                                `<button type="submit" name="fake" value="yes">Preview</button>` + 
                                 `</label></form></div></post><div>`
                         }
                         else if (!fake) 
                             ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
+                        else
+                            ret += '</div>'
                     }
                     else if (!fake)
                         ret += `<a href="/post/${id}">[Open]</a></div>`
+                    else
+                        ret += '</div>'
                     ret += '</div>'
                     for(let i = post.comments.length - 1; i >= 0; i--) {
                         const pid = id
