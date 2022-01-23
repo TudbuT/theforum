@@ -35,16 +35,23 @@ server.use(require('body-parser').urlencoded({extended: false}))
 
 
 server.all('/', function get(req, res) {
-    if(req.body.name && req.body.title && req.body.content) {
-        posts.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
-        res.redirect('/')
-        return
-    }
+    const fake = req.body.fake === 'yes'
     let mainPage = {author: webname, title: 'All posts', content: 'These are all the posts on the board:', comments: []}
     for (let i = 0; i < posts.length && i < 2000; i++) {
         mainPage.comments.push({timestamp: posts[i].timestamp, author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
-    res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, email: email, comment: ''})
+    if(req.body.name && req.body.title && req.body.content) {
+        let post = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
+        if(fake) {
+            mainPage.comments.push(post)
+            res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, email: email, comment: '', fake: true})
+        } else {
+            posts.push(post)
+            res.redirect(`/`)
+        }
+        return
+    }
+    res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, email: email, comment: '', fake: false})
 })
 server.get('/post', function get(req, res) {
     if(req.query.id) {

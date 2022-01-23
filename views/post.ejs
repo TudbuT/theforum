@@ -125,7 +125,7 @@
                                 ret += `<a href="/post/${postid}">[Nevermind]</a>`
                             ret += 
                                 `</div></div><post><div class="content"><form method="post"><label>` +
-                                `<h3><input type="username" name="name" value="Anonymous" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("\"", "&quot;")}"` : ''} required>: <input type="text" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("\"", "&quot;")}"` : ''} required></h3>` + 
+                                `<h3><input type="username" name="name" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("\"", "&quot;")}"` : 'value="Anonymous"'} required>: <input type="text" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("\"", "&quot;")}"` : ''} required></h3>` + 
                                 `<textarea name="content" placeholder="So basically, ..."  required>${fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : ''}</textarea><br/><br/><button type="submit" name="fake" value="no">Submit</button> <button type="submit" name="fake" value="yes">Preview</button>` + 
                                 `</label></form></div></post><div>`
                         }
