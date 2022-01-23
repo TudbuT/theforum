@@ -29,8 +29,6 @@ server.use(function replacer(req, res, next) {
     replace(req, /^\/post\/([0-9]+)_?/g, '/post?id=$1')
     replace(req, /^\/comment\/([0-9_]+)\/([0-9_]*)(\?(.*))?/g, '/comment?id=$1&comment=$2&$4')
     next()
-    console.log(JSON.stringify(req.query))
-    console.log(JSON.stringify(req.body))
 })
 
 server.use(require('body-parser').urlencoded({extended: false}))
