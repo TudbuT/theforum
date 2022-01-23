@@ -59,39 +59,55 @@ server.all('/comment', function get(req, res) {
         let id = req.query.id
         let comment = req.query.comment 
         if(posts[id]) {
+            const fake = req.body.fake === 'yes'
+            let toRemove = null
             let cid = ''
-            function recurse(post) {
-                console.log(String(cid) + ' ' + comment)
-                if(String(cid) === comment) {
-                    if(req.body.name && req.body.title && req.body.content) { 
-                        post.comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
-                        res.redirect(`/post/${id}`)
-                        cid = -1
-                    }
-                    return true
-                }
-                for(let i = 0; i < post.comments.length; i++) {
-                    const pid = cid
-                    cid += i + '_'
-                    if(recurse(post.comments[i]))
+            try {
+                function recurse(post) {
+                    console.log(String(cid) + ' ' + comment)
+                    if(String(cid) === comment) {
+                        if(req.body.name && req.body.title && req.body.content) { 
+                            post.comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
+                            if(fake) {
+                                res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake})
+                                toRemove = post
+                            } else
+                                res.redirect(`/post/${id}`)
+                            cid = -1
+                        }
                         return true
-                    cid = pid
+                    }
+                    for(let i = 0; i < post.comments.length; i++) {
+                        const pid = cid
+                        cid += i + '_'
+                        if(recurse(post.comments[i]))
+                            return true
+                        cid = pid
+                    }
+                    return false
                 }
-                return false
-            }
-            const f = recurse(posts[id]);
-            if(f && cid == -1)
-                return
-            if(f) {
-                res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid})
-            }
-            else {
-                if(req.body.name && req.body.title && req.body.content) { 
-                    posts[id].comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
-                    res.redirect(`/post/${id}`)
+                const f = recurse(posts[id]);
+                if(f && cid == -1)
+                    return
+                if(f) {
+                    res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake})
                 }
-                else
-                    res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: ''})
+                else {
+                    if(req.body.name && req.body.title && req.body.content) { 
+                        posts[id].comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
+                        if(fake) {
+                            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake})
+                            toRemove = posts[id]
+                        } else
+                            res.redirect(`/post/${id}`)
+                    }
+                    else
+                        res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: ''})
+                }
+            } finally {
+                if(fake) {
+                    toRemove.comments.pop()
+                }
             }
         }
     }
