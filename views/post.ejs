@@ -125,17 +125,17 @@
                             if(postid != -1)
                                 ret += `<a href="/post/${postid}">[Nevermind]</a>`
                             ret += 
-                                `</div></div><post><div class="content"><form method="post"><label>` +
+                                `</div></div><post><div class="content"><form method="post">` +
                                 `<h3>` +
                                 `<input type="username" name="name" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : 'value="Anonymous"'} required>: ` + 
-                                `<input type="text" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : ''} required>` + 
+                                `<input type="" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : ''} required>` + 
                                 `</h3>` + 
                                 `<textarea name="content" placeholder="So basically, ..." required>` +
                                 (fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : '') +
                                 `</textarea><br/><br/>` + 
                                 `<button type="submit" name="fake" value="no">Submit</button> ` +
                                 `<button type="submit" name="fake" value="yes">Preview</button>` + 
-                                `</label></form></div></post><div>`
+                                `</form></div></post><div>`
                         }
                         else if (!fake) 
                             ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
