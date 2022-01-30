@@ -91,6 +91,14 @@
             block {
                 display: block;
             }
+
+            img {
+                display: block;
+                margin: auto;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                max-width: 90%;
+            }
         </style>
     </head>
     <body>
@@ -108,7 +116,8 @@
                     ret += 
                         `<post><div class="content">${date ? (`<h6>${date.toUTCString()}</h6>`) : ''}<h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
-                            .replaceAll(/(https?:\/\/[^ \n]+)/g, '<a href="$1" target="_blank">$1</a>')
+                            .replaceAll(/\[[#] ([^"]*?) [#]\]/g, '<img src="$1">')
+                            .replaceAll(/(?<!")(https?:\/\/[^ \n]+)(?!")/g, '<a href="$1" target="_blank">$1</a>')
                             .replaceAll(/\[[*] ([\w\W]*?) [*]\]/g, '<i>$1</i>')
                             .replaceAll(/\[[*][*] ([\w\W]*?) [*][*]\]/g, '<b>$1</b>')
                             .replaceAll(/\[[*][*][*] ([\w\W]*?) [*][*][*]\]/g, '<b><i>$1</i></b>')
