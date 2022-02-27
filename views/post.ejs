@@ -139,7 +139,7 @@
                                 `<input type="username" name="name" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : 'value="Anonymous"'} required>: ` + 
                                 `<input type="" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : ''} required>` + 
                                 `</h3>` + 
-                                `<textarea name="content" placeholder="So basically, ..." required>` +
+                                `<textarea id=edit name="content" placeholder="So basically, ..." required>` +
                                 (fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : '') +
                                 `</textarea><br/><br/>` + 
                                 `<button type="submit" name="fake" value="no">Submit</button> ` +
@@ -147,7 +147,7 @@
                                 `</form></div></post><div>`
                         }
                         else if (!fake) 
-                            ret += `<a href="/comment/${postid}/${id}">[Reply]</a> </div>`
+                            ret += `<a href="/comment/${postid}/${id}#edit">[Reply]</a> </div>`
                         else
                             ret += '</div>'
                     }
