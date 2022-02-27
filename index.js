@@ -37,7 +37,9 @@ server.use(require('body-parser').urlencoded({extended: false}))
 server.all('/', function get(req, res) {
     const fake = req.body.fake === 'yes'
     let mainPage = {author: webname, title: 'All posts', content: 'These are all the posts on the board:', comments: []}
-    for (let i = 0; i < posts.length && i < 2000; i++) {
+    for (let i = 0; i < posts.length - 2000; i++) 
+        mainPage.comments.push(null)
+    for (let i = Math.max(0, posts.length - 2000); i < posts.length; i++) {
         mainPage.comments.push({timestamp: posts[i].timestamp, author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
     if(req.body.name && req.body.title && req.body.content) {
