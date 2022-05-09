@@ -12,7 +12,7 @@ just that this is JavaScript instead.
 
 # The goal
 - Simple
-- <500sloc (we have 276 at the moment)
+- <500sloc
 - Entries sorted by newest
 - Very large amount of sub-threads supported
   (current limiting factor is stack overflow errors, this will be
