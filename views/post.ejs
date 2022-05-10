@@ -103,7 +103,7 @@
     </head>
     <body>
         <%-email ? `<block style="text-align: center; width: 100%;">Please send any inquiries to ${email}.</block><br/>` : ''%>
-        <a style="position: fixed; bottom: 10px; right: 10px;" href="/"><button type="button">Home</button></a>
+        <a style="position: fixed; bottom: 10px; right: 10px;" href="/#<%- postid %>_"><button type="button">Home</button></a>
         <div class="posts">
             <%- (function(){
                 let ret = ''
@@ -114,7 +114,7 @@
                     const makeForm = id == comment || postid == -1
                     const date = post.timestamp ? new Date(post.timestamp) : null
                     ret += 
-                        `<post><div class="content">${date ? (`<h6>${date.toUTCString()}</h6>`) : ''}<h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
+                        `<post id="${id}"><div class="content">${date ? (`<h6>${date.toUTCString()}</h6>`) : ''}<h3>${post.author.replaceAll('<','&lt;').replaceAll('>','&gt;')}: ${post.title.replaceAll('<','&lt;').replaceAll('>','&gt;')}</h3>` + 
                         post.content.replaceAll('<','&lt;').replaceAll('>','&gt;')
                             .replaceAll(/\[[#] ([^"]*?) [#]\]/g, '<img src="$1">')
                             .replaceAll(/(?<!")(https?:\/\/[^ \n]+)(?!")/g, '<a href="$1" target="_blank">$1</a>')
