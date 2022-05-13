@@ -3,8 +3,8 @@ A simple forum written in JavaScript, with no browser-side JS required
 
 # Why another forum?
 This one's a bit special. It's entirely written using node.js,
-required no JS in the browser, and therefore supports browsers with 
-noscript. It's also very easy to set up, so anyonr can make a 
+requires no JS in the browser, and therefore supports browsers with 
+noscript. It's also very easy to set up, so anyone can make a 
 simple platform for friends etc.
 
 All pages are server-side-rendered, similarly to how PHP works,
