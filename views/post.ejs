@@ -141,7 +141,7 @@
                                 `</h3>` + 
                                 `<textarea id=edit name="content" placeholder="So basically, ..." required>` +
                                 (fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : '') +
-                                `</textarea><br/>` +
+                                `</textarea><br/><br/>` +
                                 `Signed: <input type="" name="secret" placeholder="Secret text" ${fake ? `value="${secret}"` : ''}><br/><br/>` + 
                                 `<button type="submit" name="fake" value="no">Submit</button> ` +
                                 `<button type="submit" name="fake" value="yes">Preview</button>` + 
