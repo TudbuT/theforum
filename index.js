@@ -45,11 +45,12 @@ server.all('/', function get(req, res) {
         mainPage.comments.push({timestamp: posts[i].timestamp, author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
     if(req.body.name && req.body.title && req.body.content) {
-        let post = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n') + (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]'), comments: []}
+        let post = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
         if(fake) {
             mainPage.comments.push(post)
-            res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, email: email, comment: '', fake: true})
+            res.render('post.ejs', {post: mainPage, postid: '-1', webname: webname, email: email, comment: '', fake: true, secret: req.body.secret || ''})
         } else {
+            post.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
             posts.push(post)
             res.redirect(`/`)
         }
@@ -78,12 +79,14 @@ server.all('/comment', function get(req, res) {
                     console.log(String(cid) + ' ' + comment)
                     if(String(cid) === comment) {
                         if(req.body.name && req.body.title && req.body.content) { 
-                            post.comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n') + (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]'), comments: []})
+                            post.comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
                             if(fake) {
-                                res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake})
+                                res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake, secret: req.body.secret || ''})
                                 toRemove = post
-                            } else
+                            } else {
+                                post.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
                                 res.redirect(`/post/${id}`)
+                            }
                             cid = -1
                         }
                         return true
@@ -105,12 +108,14 @@ server.all('/comment', function get(req, res) {
                 }
                 else {
                     if(req.body.name && req.body.title && req.body.content) { 
-                        posts[id].comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n') + (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]'), comments: []})
+                        posts[id].comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
                         if(fake) {
-                            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake})
+                            res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake, secret: req.body.secret || ''})
                             toRemove = posts[id]
-                        } else
+                        } else {
+                            post.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
                             res.redirect(`/post/${id}`)
+                        }
                     }
                     else
                         res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: ''})
