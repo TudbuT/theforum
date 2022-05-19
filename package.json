@@ -12,6 +12,7 @@
     "bdb.js": "^0.3.2-c",
     "body-parser": "^1.19.1",
     "ejs": "^3.1.6",
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "hashcode.js": "^2.2.1"
   }
 }
