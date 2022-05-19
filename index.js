@@ -78,13 +78,14 @@ server.all('/comment', function get(req, res) {
                 function recurse(post) {
                     console.log(String(cid) + ' ' + comment)
                     if(String(cid) === comment) {
-                        if(req.body.name && req.body.title && req.body.content) { 
-                            post.comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
+                        if(req.body.name && req.body.title && req.body.content) {
+                            let p = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
+                            post.comments.push(p)
                             if(fake) {
                                 res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake, secret: req.body.secret || ''})
                                 toRemove = post
                             } else {
-                                post.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
+                                p.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
                                 res.redirect(`/post/${id}`)
                             }
                             cid = -1
@@ -108,12 +109,13 @@ server.all('/comment', function get(req, res) {
                 }
                 else {
                     if(req.body.name && req.body.title && req.body.content) { 
-                        posts[id].comments.push({timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []})
+                        let p = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
+                        posts[id].comments.push(p)
                         if(fake) {
                             res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake, secret: req.body.secret || ''})
                             toRemove = posts[id]
                         } else {
-                            post.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
+                            p.content += (req.body.secret && req.body.secret !== '' ? ('\n\n[* Signed: [" ' + req.body.secret.sha512().sha512().sha256() + ' "] *]') : '\n\n[* Not signed *]')
                             res.redirect(`/post/${id}`)
                         }
                     }
