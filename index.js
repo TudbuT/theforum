@@ -44,7 +44,8 @@ server.all('/', function get(req, res) {
     for (let i = Math.max(0, posts.length - 2000); i < posts.length; i++) {
         mainPage.comments.push({timestamp: posts[i].timestamp, author: posts[i].author, title: posts[i].title, content: posts[i].content, comments: []}) 
     }
-    if(req.body.name && req.body.title && req.body.content) {
+    if(req.body.name && req.body.content) {
+        if(!req.body.title) req.body.title = '';
         let post = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
         if(fake) {
             mainPage.comments.push(post)
@@ -108,7 +109,8 @@ server.all('/comment', function get(req, res) {
                     res.render('post.ejs', {post: posts[id], postid: id, webname: webname, email: email, comment: cid, fake: fake})
                 }
                 else {
-                    if(req.body.name && req.body.title && req.body.content) { 
+                    if(req.body.name && req.body.content) { 
+                        if(!req.body.title) req.body.title = '';
                         let p = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
                         posts[id].comments.push(p)
                         if(fake) {

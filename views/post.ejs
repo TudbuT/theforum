@@ -137,7 +137,7 @@
                                 `</div></div><post><div class="content"><form method="post">` +
                                 `<h3>` +
                                 `<input type="username" name="name" ${fake ? `value="${post.comments[post.comments.length - 1].author.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : 'value="Anonymous"'} required>: ` + 
-                                `<input type="" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : ''} required>` + 
+                                `<input type="text" autocomplete="off" name="title" placeholder="Title" ${fake ? `value="${post.comments[post.comments.length - 1].title.replaceAll("&", "&amp;").replaceAll("\"", "&quot;")}"` : ''}>` + 
                                 `</h3>` + 
                                 `<textarea id=edit name="content" placeholder="So basically, ..." required>` +
                                 (fake ? post.comments[post.comments.length - 1].content.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;") : '') +
