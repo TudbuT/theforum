@@ -21,3 +21,14 @@ just that this is JavaScript instead.
 - Anonymous
 - No JS on browser-side required
 - Usable on Text-Based browsers like lynx
+
+# Setup
+```
+git clone https://github.com/tudbut/theforum
+cd theforum
+npm install
+```
+## Running
+```
+node index.js
+```
