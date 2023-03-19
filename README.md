@@ -30,5 +30,5 @@ npm install
 ```
 ## Running
 ```
-node index.js
+node index.js <port>
 ```
