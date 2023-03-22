@@ -127,7 +127,7 @@
                             .replaceAll(/\[[*][*][*][_] ([\w\W]*?) [_][*][*][*]\]/g, '<b><i><u>$1</u></i></b>')
                             .replaceAll(/\[["] ([\w\W]*?) ["]\]/g, '<pre class="inline">$1</pre>')
                             .replaceAll(/\[["]["]* \n([\w\W]*?)\n ["]["]*\]/g, '<pre>$1</pre>')
-                            .replaceAll('\n---\n', '<br/><hr><br/>')
+                            .replaceAll('\n---\n', '<br/><hr>')
                             .replaceAll('\n', '<br/>')
                     ret += '<div class="controls">'
                     if (postid != -1 || id == '') {
