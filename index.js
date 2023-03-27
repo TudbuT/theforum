@@ -79,7 +79,8 @@ server.all('/comment', function get(req, res) {
                 function recurse(post) {
                     console.log(String(cid) + ' ' + comment)
                     if(String(cid) === comment) {
-                        if(req.body.name && req.body.title && req.body.content) {
+                        if(req.body.name && req.body.content) {
+                            if(!req.body.title) req.body.title = '';
                             let p = {timestamp: new Date().getTime(), author: req.body.name, title: req.body.title, content: req.body.content.replaceAll('\r\n', '\n'), comments: []}
                             post.comments.push(p)
                             if(fake) {
